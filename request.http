@@ -1,0 +1,68 @@
+@host=http://localhost:
+@bookPORT=4545
+@customerPORT=5545
+@orderPORT=7777
+@id=6444afb8ca1343f361cecbc0
+@userId=6444b7ff09efd6d3dd9ceb0a
+@orderId=6444c6f596a7534853700e4e
+
+### GET All Books
+GET {{host}}{{bookPORT}}/book HTTP/1.1
+
+
+### GET One Books
+GET {{host}}{{bookPORT}}/book/{{id}} HTTP/1.1
+
+
+### DELETE One Books
+DELETE {{host}}{{bookPORT}}/book/{{id}} HTTP/1.1
+
+
+#### Create book
+POST {{host}}{{bookPORT}}/book HTTP/1.1
+content-type: application/json
+
+{
+  "title": "NodeJs",
+  "author": "RMC", 
+  "pages": 498, 
+  "publisher": "Eldorado"
+}
+
+
+#### Create User
+POST {{host}}{{customerPORT}}/customer HTTP/1.1
+content-type: application/json
+
+{
+  "name": "Jwhite",
+  "age": 45, 
+  "city": "Toronto"
+}
+
+
+### GET All Users
+GET {{host}}{{customerPORT}}/customer HTTP/1.1
+
+
+### GET One Books
+GET {{host}}{{customerPORT}}/customer/{{userId}} HTTP/1.1
+
+
+
+#### Create Order
+POST {{host}}{{orderPORT}}/order HTTP/1.1
+content-type: application/json
+
+{
+  "customerId": "6444c58eca31568bb45618c6",
+  "bookId": "6444c59af7f24b7391e0600b", 
+  "deliveryDate": "1682226620267"
+}
+
+### GET All Order
+GET {{host}}{{orderPORT}}/order HTTP/1.1
+
+
+### GET One Order
+GET {{host}}{{orderPORT}}/order/{{orderId}} HTTP/1.1
