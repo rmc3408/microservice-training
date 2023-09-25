@@ -128,3 +128,5 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+/grocery/backend/node_modules
+/grocery/frontEnd/node_modules
