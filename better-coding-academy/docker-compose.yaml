@@ -1,0 +1,22 @@
+version: "3"
+services:
+  listings-service:
+    build:
+      dockerfile: "./listings-service/Dockerfile"
+    depends_on:
+      - listings-service-db
+    volumes:
+      - ./listings-service:/opt/app
+
+  listings-service-db:
+
+  users-service:
+    build:
+      dockerfile: "./users-service/Dockerfile"
+    depends_on:
+      - users-service-db
+    volumes:
+      - ./users-service:/opt/app
+
+  users-service-db:
+
