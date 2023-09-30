@@ -48,3 +48,34 @@ Learn how to create Microservices with NodeJS. We learn how to create an Event-D
 - 35:46 RabbitMQ
 - 41:19 Sending & Consuming Events
 - 55:08 Internal Http Requests
+
+# React + Node.js Microservices App With Docker and GraphQL 
+
+Better Coding Academy
+
+https://www.youtube.com/c/BetterCodingAcademy
+
+https://github.com/lucaschen/microservices-demo
+
+Uses the following technologies:
+
+- Docker (and Docker Compose)
+- React
+- Node.js
+- MySQL
+- Sequelize
+
+### Setup
+
+```sh
+# in main directory
+docker-compose up
+
+# in a separate terminal, inside classifieds-app
+yarn
+yarn watch
+```
+
+### Deploy
+
+Check out my video series for a step-by-step tutorial on how to deploy this.
