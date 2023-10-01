@@ -1,8 +1,11 @@
-FROM mhart/alpine-node
+FROM node:alpine
 
 WORKDIR /opt/app
-COPY package.json .
+COPY ./listings-service/package.json /opt/app
 RUN yarn
-COPY . .
+COPY ./listings-service/* /opt/app
+
+VOLUME ["/opt/app/node_modules"]
+EXPOSE 3001
 
 CMD yarn watch

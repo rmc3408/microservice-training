@@ -1,22 +1,51 @@
 version: "3"
 services:
-  listings-service:
+  listings:
     build:
       dockerfile: "./listings-service/Dockerfile"
+    environment:
+      - MYSQL_HOST_URL=listings-db
+      - MYSQL_ROOT_USERNAME=root
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=db
+      - PORT=3001
+    ports:
+      - "3001:3001"
     depends_on:
-      - listings-service-db
+      - listings-db
     volumes:
       - ./listings-service:/opt/app
+      - /opt/app/node_modules
 
-  listings-service-db:
+  listings-db:
+    image: mysql:5.7.43
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=db
+    ports:
+      - 3003:3306
 
-  users-service:
+  users:
     build:
       dockerfile: "./users-service/Dockerfile"
+    environment:
+      - MYSQL_HOST_URL=users-db
+      - MYSQL_ROOT_USERNAME=root
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=db
+      - PORT=3002
+    ports:
+      - "3002:3002"
     depends_on:
-      - users-service-db
+      - users-db
     volumes:
       - ./users-service:/opt/app
+      - /opt/app/node_modules
 
-  users-service-db:
-
+  users-db:
+    image: mysql:5.7.43
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=db
+    ports:
+      - 3004:3306
