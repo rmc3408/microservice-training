@@ -1,7 +1,11 @@
 import "@babel/polyfill"
 
 import startDatabaseORM from '../config/sequelize'
-import startServer from "../config/server"
+import startServer from "./server"
 
-startDatabaseORM()
-startServer()
+async function start() {
+  await startDatabaseORM()
+  await startServer()
+}
+
+start()

@@ -19,3 +19,4 @@ async function startDatabaseORM() {
 }
 
 module.exports = startDatabaseORM
+module.exports.sequelize = sequelize
