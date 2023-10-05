@@ -20,7 +20,12 @@ const typeDefs = `#graphql
   }
 
   type Query {
-    listings: [Listing!]
+    allListings: [Listing!]
+    allUsers: [User!]
+  }
+
+  type Mutation {
+    createUser(email: String!, password: String!): User!
   }
 `;
 

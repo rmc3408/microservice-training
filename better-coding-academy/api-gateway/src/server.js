@@ -23,8 +23,8 @@ export default async function startGraphQL() {
 
   await apolloServer.start()
   app.use(cookieParser());
-  app.use(bodyParser.json())
-  app.use('/graphql', cors({ credentials: true }), expressMiddleware(apolloServer))
+  
+  app.use('/graphql', bodyParser.json(), cors({ credentials: true }), expressMiddleware(apolloServer))
 
   await new Promise((resolve) => httpServer.listen({ port: 3000 }, resolve))
   console.log(`🚀 Server ready at http://localhost:3000/graphql`)

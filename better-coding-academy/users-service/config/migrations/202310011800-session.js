@@ -14,7 +14,6 @@ module.exports = {
           },
           key: 'id',
         },
-        
       },
       createdAt: {
         allowNull: false,

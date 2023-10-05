@@ -2,7 +2,8 @@ version: "3"
 services:
   api-gateway:
     build:
-      dockerfile: "./api-gateway/Dockerfile"
+      context: ./api-gateway
+      dockerfile: Dockerfile
     ports:
       - "3000:3000"
     depends_on:
@@ -13,15 +14,16 @@ services:
 
   listings:
     build:
-      dockerfile: "./listings-service/Dockerfile"
+      context: ./listings-service
+      dockerfile: Dockerfile
     environment:
       - MYSQL_HOST_URL=listings-db
       - MYSQL_ROOT_USERNAME=root
       - MYSQL_ROOT_PASSWORD=password
       - MYSQL_DATABASE=db
       - PORT=3001
-    ports:
-      - "3001:3001"
+    # ports:
+    #   - "3001:3001"
     depends_on:
       - listings-db
     volumes:
@@ -38,15 +40,16 @@ services:
 
   users:
     build:
-      dockerfile: "./users-service/Dockerfile"
+      context: ./users-service
+      dockerfile: Dockerfile
     environment:
       - MYSQL_HOST_URL=users-db
       - MYSQL_ROOT_USERNAME=root
       - MYSQL_ROOT_PASSWORD=password
       - MYSQL_DATABASE=db
       - PORT=3002
-    ports:
-      - "3002:3002"
+    # ports:
+    #   - "3002:3002"
     depends_on:
       - users-db
     volumes:

@@ -14,7 +14,7 @@ module.exports = {
       },
       passwordHash: {
         allowNull: false,
-        type: DataTypes.CHAR(64)
+        type: DataTypes.STRING
       },
       createdAt: {
         allowNull: false,

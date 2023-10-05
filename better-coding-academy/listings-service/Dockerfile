@@ -1,11 +1,10 @@
 FROM node:alpine
 
 WORKDIR /opt/app
-COPY ./listings-service/package.json /opt/app
+COPY package.json .
 RUN yarn
-COPY ./listings-service/* /opt/app
+COPY . .
 
 VOLUME ["/opt/app/node_modules"]
-EXPOSE 3001
 
 CMD yarn watch
