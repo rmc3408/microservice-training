@@ -1,6 +1,7 @@
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer'
+import formatGraphQLErrors from './graphql/formatGraphQLErrors'
 import cors from 'cors';
 import http from 'http';
 import cookieParser from "cookie-parser";
@@ -16,6 +17,7 @@ export default async function startGraphQL() {
   const httpServer = http.createServer(app)
 
   const apolloServer = new ApolloServer({
+    formatError: formatGraphQLErrors,
     resolvers: listingsResolver,
     typeDefs,
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
