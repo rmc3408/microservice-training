@@ -1,0 +1,26 @@
+{
+  "name": "classified-app",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "start": "parcel --port=4000 src/index.html",
+    "check": "tsc --noEmit",
+    "build": "parcel build"
+  },
+  "devDependencies": {
+    "@parcel/transformer-typescript-tsc": "^2.10.1",
+    "@parcel/validator-typescript": "^2.10.1",
+    "@types/react": "^18.2.33",
+    "@types/react-dom": "^18.2.14",
+    "parcel": "latest",
+    "parcel-resolver-tspaths": "^0.0.9",
+    "process": "^0.11.10",
+    "typescript": ">=3.0.0"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "styled-components": "^6.1.0"
+  },
+  "browserslist": "> 0.5%, last 2 versions, not dead"
+}

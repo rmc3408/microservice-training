@@ -15,7 +15,7 @@ import { listingsResolver } from './graphql/resolvers';
 export default async function startGraphQL() {
   const app = express()
   const httpServer = http.createServer(app)
-
+  
   const apolloServer = new ApolloServer({
     formatError: formatGraphQLErrors,
     resolvers: listingsResolver,
@@ -24,9 +24,12 @@ export default async function startGraphQL() {
   })
 
   await apolloServer.start()
-  app.use(cookieParser());
-  
-  app.use('/graphql', bodyParser.json(), cors({ credentials: true }), expressMiddleware(apolloServer))
+
+  app.use(cookieParser())
+  const corsOptions = { origin: true, credentials: true }
+  app.use('/graphql', bodyParser.json(), cors(corsOptions), expressMiddleware(apolloServer, {
+    context: ctx => ctx,
+  }))
 
   await new Promise((resolve) => httpServer.listen({ port: 3000 }, resolve))
   console.log(`🚀 Server ready at http://localhost:3000/graphql`)

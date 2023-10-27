@@ -37,4 +37,7 @@ export const Session = sequelize.define('session', {
     allowNull: false,
     type: DataTypes.DATE
   }
+}, {
+  updatedAt: false,
+  paranoid: false
 })

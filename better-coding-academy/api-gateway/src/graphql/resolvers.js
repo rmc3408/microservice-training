@@ -14,6 +14,11 @@ export const listingsResolver = {
   Mutation: {
     createUser: async (obj, { email, password }) => {
       return await UserServices.createUser(email, password)
-    }
+    },
+    createSession: async (obj, { email, password }, context) => {
+      const userSession = await UserServices.createSession(email, password)
+      context.res.cookie('session', userSession.id, { httpOnly: true })
+      return userSession
+    },
   }
 }

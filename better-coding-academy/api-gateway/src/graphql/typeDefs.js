@@ -16,7 +16,7 @@ const typeDefs = `#graphql
     id: ID!
     user: User!
     createdAt: Date!
-    expiresAt: Date!
+    expiredAt: Date!
   }
 
   type Query {
@@ -26,6 +26,7 @@ const typeDefs = `#graphql
 
   type Mutation {
     createUser(email: String!, password: String!): User!
+    createSession(email: String!, password: String!): UserSession!
   }
 `;
 

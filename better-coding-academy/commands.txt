@@ -1,0 +1,5 @@
+
+Inside docker for both Listining and Users
+
+Enter in CLI
+Run ```npm run db:migrate```
