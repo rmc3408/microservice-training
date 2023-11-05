@@ -6,6 +6,7 @@ import { addHours } from 'date-fns'
 const USER_SESSION_EXPIRY_HOURS = 2
 
 const setupRoutes = app => {
+
   app.post("/sessions", async (req, res, next) => {
     console.log('SESSIONS POST')
 
@@ -47,6 +48,18 @@ const setupRoutes = app => {
   });
 
 
+  app.get("/users/:id", async (req, res, next) => {
+    const id = req.params.id
+    try {
+      const user = await Users.findOne({ where: { id }})
+      if(!user) return next(new Error("Invalid user ID"));
+      return res.json(user);
+    } catch (e) {
+      return next(e);
+    }
+  });
+
+
   app.post("/users", async (req, res, next) => {
     console.log('USER POST')
 
@@ -61,6 +74,17 @@ const setupRoutes = app => {
     try {
       const users = await Users.create({ id, email, passwordHash: hashedPassword })
       return res.json(users)
+    } catch (e) {
+      return next(e);
+    }
+  });
+
+  app.get("/sessions/:sessionId", async (req, res, next) => {
+    const id = req.params.sessionId
+    try {
+      const userSession = await Session.findByPk(id)
+      if (!userSession) return next(new Error("Invalid session ID"));
+      return res.json(userSession);
     } catch (e) {
       return next(e);
     }

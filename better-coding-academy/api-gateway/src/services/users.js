@@ -12,8 +12,16 @@ class UserServices {
     const users = await got.get(USER_SRV).json()
     return users
   }
+  static async getUser(id) {
+    const users = await got.get(USER_SRV + '/' + id).json()
+    return users
+  }
   static async createSession(email, password) {
     const session = await got.post(SESSION_SRV, { json: { email, password }}).json()
+    return session
+  }
+  static async getSession(id) {
+    const session = await got.get(SESSION_SRV + '/' + id).json()
     return session
   }
 

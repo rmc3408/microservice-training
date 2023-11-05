@@ -22,6 +22,7 @@ const typeDefs = `#graphql
   type Query {
     allListings: [Listing!]
     allUsers: [User!]
+    oneSession(owner: Boolean!): UserSession
   }
 
   type Mutation {

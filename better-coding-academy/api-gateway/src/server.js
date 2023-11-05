@@ -9,28 +9,44 @@ import express from 'express';
 import bodyParser from 'body-parser';
 
 import typeDefs from "./graphql/typeDefs";
-import { listingsResolver } from './graphql/resolvers';
+import { Resolvers } from './graphql/resolvers';
+import UserServices from './services/users';
 
 
 export default async function startGraphQL() {
   const app = express()
   const httpServer = http.createServer(app)
-  
+
   const apolloServer = new ApolloServer({
     formatError: formatGraphQLErrors,
-    resolvers: listingsResolver,
+    resolvers: Resolvers,
     typeDefs,
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   })
 
   await apolloServer.start()
 
-  app.use(cookieParser())
   const corsOptions = { origin: true, credentials: true }
-  app.use('/graphql', bodyParser.json(), cors(corsOptions), expressMiddleware(apolloServer, {
-    context: ctx => ctx,
-  }))
+
+  // middlewares together
+  app.use('/graphql',
+    cors(corsOptions),
+    cookieParser(),
+    bodyParser.json(),
+    expressMiddleware(apolloServer, {
+      context: async ({ req, res }) => {
+        try {
+          const session = await UserServices.getSession(req.cookies.session)
+          res.locals.activeUser = session
+        } catch(e) {
+          //console.log(e)
+        } finally {
+          return { res, req }
+        }
+      }
+    })
+  )
 
   await new Promise((resolve) => httpServer.listen({ port: 3000 }, resolve))
-  console.log(`🚀 Server ready at http://localhost:3000/graphql`)
+  console.log(`🚀 Server ready at http://localhost:3000`)
 }

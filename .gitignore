@@ -6,6 +6,8 @@ build/Release
 /grocery/frontEnd/node_modules
 
 /**/node_modules/
+/better-coding-academy/**/.parcel-cache
+/better-coding-academy/**/dist
 
 # dotenv environment variable files
 .env

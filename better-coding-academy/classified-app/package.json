@@ -3,13 +3,14 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "parcel --port=4000 src/index.html",
+    "start": "parcel --port=8000 src/index.html",
     "check": "tsc --noEmit",
     "build": "parcel build"
   },
   "devDependencies": {
     "@parcel/transformer-typescript-tsc": "^2.10.1",
     "@parcel/validator-typescript": "^2.10.1",
+    "@types/node": "^20.8.10",
     "@types/react": "^18.2.33",
     "@types/react-dom": "^18.2.14",
     "parcel": "latest",
@@ -18,8 +19,11 @@
     "typescript": ">=3.0.0"
   },
   "dependencies": {
+    "@apollo/client": "^3.8.7",
+    "graphql": "^16.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.48.2",
     "styled-components": "^6.1.0"
   },
   "browserslist": "> 0.5%, last 2 versions, not dead"

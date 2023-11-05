@@ -1,8 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
-
   html, body, #app {
     height: 100%;
     margin: 0;
@@ -11,6 +9,6 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    font-family: Roboto, sans-serif;
+    font-family: 'Roboto Mono', monospace, 'Indie Flower', cursive;
   }
 `;
