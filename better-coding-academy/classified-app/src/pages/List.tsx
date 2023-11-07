@@ -41,11 +41,7 @@ export default function List() {
           </Listing>
         ))}
       </div>
-      <AddListing
-        // onAddListing={() => {
-        //   refetch();
-        // }}
-      />
+      <AddListing />
     </div>
   );
 }

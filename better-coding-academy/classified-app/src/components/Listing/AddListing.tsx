@@ -43,7 +43,6 @@ const AddListing = () => {
   const onSubmit: SubmitHandler<PostCreating> = async (data) => {
     await createListing({ variables: { description: data.description, title: data.title } });
     reset();
-    //pushAddListing();
   }
 
   return (
