@@ -10,7 +10,6 @@ const formatGraphQLErrors = (formattedError, error) => {
   if (formattedError.message.includes('Response code ')) {
     return { message: 'Error in calling your server - Location ' + formattedError.path };
   }
-  console.log(error)
 
   return formattedError;
 };

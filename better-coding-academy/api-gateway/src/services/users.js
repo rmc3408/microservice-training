@@ -24,6 +24,10 @@ class UserServices {
     const session = await got.get(SESSION_SRV + '/' + id).json()
     return session
   }
+  static async deleteSession(id) {
+    const session = await got.delete(SESSION_SRV + '/' + id).json()
+    return session
+  }
 
 }
 

@@ -1,11 +1,19 @@
 import { gql } from "@apollo/client";
 
 
-export const ALL_USERS = gql`
- query ALL_USERS {
-  allUsers {
+export const ALL_LISTING = gql`
+ query All_LIST {
+  allListings {
     id
-    email
+    title
+    description
+  }
+  oneSession(owner: true) {
+    id
+    user {
+      id
+      email
+    }
   }
 }
 `;

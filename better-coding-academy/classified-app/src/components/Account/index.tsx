@@ -1,7 +1,14 @@
 import styled from "styled-components";
 import { storeSelector, storeDispatch } from "root/store/useStore";
 import { clear } from "root/store/slice";
+import { useMutation } from "@apollo/client";
+import { SESSION_CLEAR } from "root/api/mutations/user";
 
+
+export type UserInputs = {
+  email: string
+  password: string
+}
 
 const Email = styled.div`
   color: ${props => props.theme.nero};
@@ -22,8 +29,10 @@ const Wrapper = styled.div`
 
 const Account = () => {
   const dispatch = storeDispatch();
+  const [deleteSession] = useMutation(SESSION_CLEAR);
   const session = storeSelector(state => state.session);
 
+  console.log("INSIDE LOGGED USER ACCOUNT", session)
   return (
     <Wrapper>
       Logged in as
@@ -32,6 +41,7 @@ const Account = () => {
         onClick={evt => {
           evt.preventDefault();
           dispatch(clear());
+          deleteSession({ variables: { id: session.id }});
         }}
       >
         (Logout)

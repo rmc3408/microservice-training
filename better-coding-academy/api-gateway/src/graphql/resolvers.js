@@ -1,4 +1,4 @@
-import ListingsServices from "#root/services/listings"
+import ListingsServices from "../services/listings"
 import UserServices from "../services/users"
 
 
@@ -12,11 +12,13 @@ export const Resolvers = {
     },
     oneSession: async (parent, args, context, info) => {
       if (!args.owner) throw new Error('Unsupported user')
-      if (!context.res.locals.activeUser) {
+
+      if (context.req.cookies.session) {
         const session = await UserServices.getSession(context.req.cookies.session)
+        context.res.locals.activeUser = session
         return session
       } else {
-        return context.res.locals.activeUser
+        return null
       }
     }
   },
@@ -27,8 +29,17 @@ export const Resolvers = {
     createSession: async (obj, { email, password }, context) => {
       const userSession = await UserServices.createSession(email, password)
       context.res.cookie('session', userSession.id, { httpOnly: true })
+      //context.res.locals.activeUser = userSession
       return userSession
     },
+    deleteSession: async (obj, { id }, context) => {
+      context.res.clearCookie('session')
+      //context.res.locals.activeUser = null
+      return await UserServices.deleteSession(id)
+    },
+    createList: async (obj, { title, description }, context) => {
+      return await ListingsServices.create(title, description)
+    }
   },
   UserSession: {
     user: async (parent, _args, _context, _info) => {

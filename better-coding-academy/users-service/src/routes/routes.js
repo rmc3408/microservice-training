@@ -90,6 +90,17 @@ const setupRoutes = app => {
     }
   });
 
+  app.delete("/sessions/:sessionId", async (req, res, next) => {
+    const id = req.params.sessionId
+    try {
+      const userSession = await Session.destroy({ where: { id }})
+      if (userSession == 0) return res.json(false);
+      return res.json(true);
+    } catch (e) {
+      return next(e);
+    }
+  });
+
 };
 
 export default setupRoutes;

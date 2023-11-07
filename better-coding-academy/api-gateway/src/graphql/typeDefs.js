@@ -28,6 +28,8 @@ const typeDefs = `#graphql
   type Mutation {
     createUser(email: String!, password: String!): User!
     createSession(email: String!, password: String!): UserSession!
+    deleteSession(id: ID!): Boolean
+    createList(title: String!, description: String!): Listing!
   }
 `;
 

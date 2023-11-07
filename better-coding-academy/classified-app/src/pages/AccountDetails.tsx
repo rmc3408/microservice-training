@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import { storeSelector } from "root/store/useStore";
-import Login from "../components/Login/Login";
+import Login from "root/components/Login";
 import Account from "root/components/Account";
+import SignUp from "root/components/SignUp";
 
 
 const AccountDetails = () => {
   const session = storeSelector(state => state.session);
+  const [ isUp, setSignUp] = useState<boolean>(false)
 
-  console.log('ACCOUNT DETAILS COMPONENT', session)
   if (session.id !== '') return <Account />;
 
-  return <Login />
+  return isUp ? <SignUp signup={setSignUp} /> : <Login signup={setSignUp}/>
 };
 
 export default AccountDetails;

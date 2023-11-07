@@ -5,11 +5,10 @@ import TextInput from 'root/components/shared/TextInput'
 import { SESSION_NEW } from 'root/api/mutations/user';
 import { storeDispatch } from 'root/store/useStore';
 import { set } from 'root/store/slice';
+import { UserInputs } from '../Account';
+import { Dispatch, SetStateAction } from 'react';
 
-type Inputs = {
-  email: string
-  password: string
-}
+
 
 const Label = styled.label`
   display: block;
@@ -37,17 +36,22 @@ const LoginButton = styled.button`
     margin-top: 0.75rem;
 `;
 
-// const OrSignUp = styled.span`
-//   font-size: 0.9rem;
-// `;
+const OrSignUp = styled.span`
+  margin-left: 0.9rem;
+  font-size: 0.9rem;
+`;
 
-function Login() {
+type LoginProps = {
+  signup: Dispatch<SetStateAction<boolean>>
+}
+
+function Login({ signup }: LoginProps) {
   const [createSession, { data: dataSession }] = useMutation(SESSION_NEW);
   const dispatch = storeDispatch()
 
-  const { register, handleSubmit, formState, watch } = useForm<Inputs>()
+  const { register, handleSubmit, formState, watch } = useForm<UserInputs>()
   
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+  const onSubmit: SubmitHandler<UserInputs> = async (data) => {
     const result = await createSession({ variables: { email: data.email, password: data.password }})
     dispatch(set(result.data.createSession))
   }
@@ -66,6 +70,12 @@ function Login() {
       <LoginButton disabled={formState.isSubmitting} type="submit">
         Login
       </LoginButton>
+      <OrSignUp>
+        <a href='#' onClick={(e)=> {
+          e.preventDefault()
+          signup(true)
+        }}>SignUp</a>
+      </OrSignUp>
     </form>
   )
 }

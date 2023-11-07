@@ -10,7 +10,6 @@ import bodyParser from 'body-parser';
 
 import typeDefs from "./graphql/typeDefs";
 import { Resolvers } from './graphql/resolvers';
-import UserServices from './services/users';
 
 
 export default async function startGraphQL() {
@@ -21,13 +20,12 @@ export default async function startGraphQL() {
     formatError: formatGraphQLErrors,
     resolvers: Resolvers,
     typeDefs,
-    csrfPrevention: false,
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   })
 
   await apolloServer.start()
 
-  const corsOptions = { origin: ['http://localhost:4001'], credentials: true }
+  const corsOptions = { origin: ['http://localhost:4002'], credentials: true }
 
   // middlewares together
   app.use('',
@@ -35,16 +33,7 @@ export default async function startGraphQL() {
     cookieParser(),
     bodyParser.json(),
     expressMiddleware(apolloServer, {
-      context: async ({ req, res }) => ({ req, res })
-      // {
-        // console.log(res.locals.activeUser, req.cookies.session)
-        // if (req.cookies.session && !req.locals) {
-        //   const session = await UserServices.getSession(req.cookies.session)
-        //   res.locals.activeUser = session
-        //   console.log('CONTEXT SESSION', res.locals.activeUser)
-        //   return { res, req }
-        // }
-      // }
+      context: async ctx => ctx
     })
   )
 

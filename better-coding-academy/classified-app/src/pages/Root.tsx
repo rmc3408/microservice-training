@@ -36,6 +36,7 @@ const Root = () => {
   const dispatch = storeDispatch();
   
   if (loading) <h1>Loading...</h1>
+  if (error) console.log(error)
   
   useEffect(() => {
     console.log('USEEFFECT', data)

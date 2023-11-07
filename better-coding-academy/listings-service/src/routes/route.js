@@ -11,6 +11,7 @@ const setupRoutes = app => {
   });
 
   app.post("/listings", async (req, res, next) => {
+    
     if (!req.body.description || !req.body.title) {
       return next(new Error("Invalid body!"));
     }
@@ -20,6 +21,7 @@ const setupRoutes = app => {
       const listing = await Listings.create({ description, title });
       return res.json(listing);
     } catch (e) {
+      console.log(e);
       return next(e);
     }
   });
