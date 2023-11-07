@@ -1,7 +1,11 @@
-import React from "react";
-import Login from "root/modules/auth/Login";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import List from "./List";
+import { useQuery } from "@apollo/client";
+import { SESSION } from "root/api/queries/user";
+import { storeDispatch } from "root/store/useStore";
+import { set } from 'root/store/slice'
+import AccountDetails from "root/pages/AccountDetails";
 
 
 const Container = styled.div`
@@ -28,7 +32,20 @@ const Wrapper = styled.div`
 `;
 
 const Root = () => {
-  console.log("ROOT")
+  const { loading, error, data } = useQuery(SESSION);
+  const dispatch = storeDispatch();
+  
+  if (loading) <h1>Loading...</h1>
+  
+  useEffect(() => {
+    console.log('USEEFFECT', data)
+    if (data?.oneSession) {
+      dispatch(set(data.oneSession))
+    }
+  }, [data])
+
+  console.log('ROOT COMPONENT', loading, error, data?.oneSession)
+  
 
   return (
     <Wrapper>
@@ -39,7 +56,7 @@ const Root = () => {
         </Content>
         <Sidebar>
           <h1>Account</h1>
-          <Login />
+          <AccountDetails />
         </Sidebar>
       </Container>
     </Wrapper>

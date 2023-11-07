@@ -9,3 +9,15 @@ export const ALL_USERS = gql`
   }
 }
 `;
+
+export const SESSION = gql`
+ query Session {
+  oneSession(owner: true) {
+    id
+    user {
+      id
+      email
+    }
+  }
+}
+`;

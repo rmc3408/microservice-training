@@ -1,8 +1,10 @@
-import { useMutation, gql } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import {useForm, SubmitHandler} from 'react-hook-form'
 import styled from 'styled-components'
 import TextInput from 'root/components/shared/TextInput'
-import { CREATE_USER } from 'root/api/mutations/user';
+import { SESSION_NEW } from 'root/api/mutations/user';
+import { storeDispatch } from 'root/store/useStore';
+import { set } from 'root/store/slice';
 
 type Inputs = {
   email: string
@@ -40,13 +42,16 @@ const LoginButton = styled.button`
 // `;
 
 function Login() {
-  const [createUser, { data, loading, error }] = useMutation(CREATE_USER);
+  const [createSession, { data: dataSession }] = useMutation(SESSION_NEW);
+  const dispatch = storeDispatch()
+
   const { register, handleSubmit, formState, watch } = useForm<Inputs>()
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    createUser({ variables: { email: data.email, password: data.password }})
-  }
   
-  console.log("LOGIN", data, loading, error)
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    const result = await createSession({ variables: { email: data.email, password: data.password }})
+    dispatch(set(result.data.createSession))
+  }
+
   
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

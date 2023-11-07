@@ -21,29 +21,30 @@ export default async function startGraphQL() {
     formatError: formatGraphQLErrors,
     resolvers: Resolvers,
     typeDefs,
+    csrfPrevention: false,
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   })
 
   await apolloServer.start()
 
-  const corsOptions = { origin: true, credentials: true }
+  const corsOptions = { origin: ['http://localhost:4001'], credentials: true }
 
   // middlewares together
-  app.use('/graphql',
+  app.use('',
     cors(corsOptions),
     cookieParser(),
     bodyParser.json(),
     expressMiddleware(apolloServer, {
-      context: async ({ req, res }) => {
-        try {
-          const session = await UserServices.getSession(req.cookies.session)
-          res.locals.activeUser = session
-        } catch(e) {
-          //console.log(e)
-        } finally {
-          return { res, req }
-        }
-      }
+      context: async ({ req, res }) => ({ req, res })
+      // {
+        // console.log(res.locals.activeUser, req.cookies.session)
+        // if (req.cookies.session && !req.locals) {
+        //   const session = await UserServices.getSession(req.cookies.session)
+        //   res.locals.activeUser = session
+        //   console.log('CONTEXT SESSION', res.locals.activeUser)
+        //   return { res, req }
+        // }
+      // }
     })
   )
 

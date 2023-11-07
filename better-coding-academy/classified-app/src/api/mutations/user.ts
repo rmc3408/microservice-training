@@ -12,8 +12,13 @@ mutation CREATE_USER($email: String!, $password: String!) {
 export const SESSION_NEW = gql`
 mutation SESSION_NEW($email: String!, $password: String!) {
   createSession(email: $email, password: $password) {
+    __typename
     id
     expiredAt
+    user {
+      id
+      email
+    }
   }
 }
 `;
