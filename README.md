@@ -69,7 +69,8 @@ Uses the following technologies:
 
 ```sh
 # in main directory
-docker-compose up
+docker-compose up -d
+inside User and listing , run ```npm run db:migrate```
 
 # in a separate terminal, inside classifieds-app
 yarn
